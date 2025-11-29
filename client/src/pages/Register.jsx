@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 const Register = () => {
   const [name, setName] = useState('');
@@ -7,9 +8,14 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const [confirm, setConfirm] = useState('');
   const [message, setMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const { register } = useAuth();
+  const navigate = useNavigate();
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
+    setMessage('');
+    
     if (!name.trim() || !email.trim() || !password || !confirm) {
       setMessage('Please fill all fields');
       return;
@@ -18,7 +24,20 @@ const Register = () => {
       setMessage('Passwords do not match');
       return;
     }
-    setMessage('Account created (demo). You can now log in.');
+    if (password.length < 6) {
+      setMessage('Password must be at least 6 characters');
+      return;
+    }
+
+    setIsLoading(true);
+    const result = await register(name, email, password);
+    setIsLoading(false);
+
+    if (result.success) {
+      navigate('/');
+    } else {
+      setMessage(result.message || 'Registration failed. Please try again.');
+    }
   };
 
   return (
@@ -71,11 +90,16 @@ const Register = () => {
 
           <button
             type="submit"
-            className="w-full rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 px-6 py-3 text-white text-lg font-semibold shadow-lg shadow-blue-600/30 hover:from-blue-700 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition"
+            disabled={isLoading}
+            className="w-full rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 px-6 py-3 text-white text-lg font-semibold shadow-lg shadow-blue-600/30 hover:from-blue-700 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Create account
+            {isLoading ? 'Creating account...' : 'Create account'}
           </button>
-          {message && <p className="text-sm text-gray-700">{message}</p>}
+          {message && (
+            <p className={`text-sm ${message.includes('success') || message.includes('created') ? 'text-green-600' : 'text-red-600'}`}>
+              {message}
+            </p>
+          )}
         </form>
 
         <p className="mt-6 text-sm text-gray-600">

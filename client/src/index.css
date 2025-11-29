@@ -71,3 +71,19 @@ button:focus { outline: 4px auto -webkit-focus-ring-color; }
 .nav-inner { max-width: 1100px; margin: 0 auto; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; }
 .nav-links { list-style: none; display: flex; gap: 16px; margin: 0; padding: 0; }
 .nav-links a { font-size: 14px; color: inherit; }
+
+/* Profile Dropdown Animation */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.profile-dropdown {
+  animation: fadeInDown 0.2s ease-out;
+}
