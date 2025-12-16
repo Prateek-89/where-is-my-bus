@@ -9,17 +9,17 @@ const TESTIMONIALS = [
 
 const Testimonials = () => {
   return (
-    <section id="testimonials" className="bg-white">
+    <section id="testimonials" className="bg-white dark:bg-dark-bg transition-colors duration-200">
       <div className="max-w-5xl mx-auto px-4 py-16">
-        <h3 className="text-3xl font-bold text-center">What commuters say</h3>
+        <h3 className="text-3xl font-bold text-center dark:text-dark-text-primary">What commuters say</h3>
         <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
           {TESTIMONIALS.map(t => (
             <figure
               key={t.id}
-              className="rounded-2xl border border-gray-200 p-6 bg-gray-50 shadow-sm"
+              className="rounded-2xl border border-gray-200 dark:border-dark-border p-6 bg-gray-50 dark:bg-dark-surface shadow-sm"
             >
-              <blockquote className="text-lg text-gray-800 leading-relaxed">“{t.quote}”</blockquote>
-              <figcaption className="mt-4 text-gray-600 font-medium">— {t.author}</figcaption>
+              <blockquote className="text-lg text-gray-800 dark:text-dark-text-primary leading-relaxed">"{t.quote}"</blockquote>
+              <figcaption className="mt-4 text-gray-600 dark:text-dark-text-secondary font-medium">— {t.author}</figcaption>
             </figure>
           ))}
         </div>

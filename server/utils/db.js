@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const connectDB = async () => {
-    try {
+try {
         // Check if MONGO_URL is defined
         if (!process.env.MONGO_URL) {
             throw new Error("MONGO_URL is not defined in environment variables. Please create a .env file with MONGO_URL");
@@ -55,7 +55,7 @@ const connectDB = async () => {
             process.exit(0);
         });
 
-    } catch (error) {
+} catch (error) {
         console.error("\n❌ MongoDB Connection Failed!");
         console.error(`   Error: ${error.message}`);
         
@@ -88,9 +88,9 @@ const connectDB = async () => {
         const url = process.env.MONGO_URL || 'Not set';
         const maskedUrl = url.replace(/\/\/([^:]+):([^@]+)@/, '//***:***@');
         console.error(`   ${maskedUrl}\n`);
-        
+    
         process.exit(1); // Exit process if database connection fails
-    }
+}
 };
 
 export default connectDB;

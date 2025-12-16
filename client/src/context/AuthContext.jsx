@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { createContext, useState, useContext, useEffect, useCallback } from 'react';
 
 const AuthContext = createContext();
 
@@ -16,11 +16,7 @@ export const AuthProvider = ({ children }) => {
   const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
   // Check if user is logged in on mount
-  useEffect(() => {
-    checkAuth();
-  }, []);
-
-  const checkAuth = async () => {
+  const checkAuth = useCallback(async () => {
     try {
       const token = localStorage.getItem('token');
       if (!token) {
@@ -56,7 +52,11 @@ export const AuthProvider = ({ children }) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [API_BASE]);
+
+  useEffect(() => {
+    checkAuth();
+  }, [checkAuth]);
 
   const login = async (email, password) => {
     try {
@@ -116,6 +116,33 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const googleLogin = async (idToken) => {
+    try {
+      const response = await fetch(`${API_BASE}/api/auth/google`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify({ idToken }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        if (data.token) {
+          localStorage.setItem('token', data.token);
+        }
+        setUser(data.user);
+        return { success: true, user: data.user };
+      }
+      return { success: false, message: data.message || 'Google login failed' };
+    } catch (error) {
+      console.error('Google login error:', error);
+      return { success: false, message: 'Network error. Please try again.' };
+    }
+  };
+
   const logout = async () => {
     try {
       const token = localStorage.getItem('token');
@@ -142,10 +169,13 @@ export const AuthProvider = ({ children }) => {
     loading,
     login,
     register,
+    googleLogin,
     logout,
     isAuthenticated: !!user,
+    checkAuth,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
+
 

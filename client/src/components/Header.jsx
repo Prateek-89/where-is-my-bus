@@ -53,21 +53,21 @@ const Header = () => {
 
         {/* Right side: Navigation */}
         <nav className="ml-auto">
-          <ul className="flex items-center gap-6 text-black">
+          <ul className="flex items-center gap-4 text-black">
             <li>
-              <Link to="/" className="text-black hover:text-gray-900">Home</Link>
+              <Link to="/" className="text-black hover:text-gray-900 transition-colors">Home</Link>
             </li>
             <li>
-              <Link to="/buses" className="text-black hover:text-gray-900">Buses</Link>
+              <Link to="/buses" className="text-black hover:text-gray-900 transition-colors">Buses</Link>
             </li>
             <li>
-              <Link to="/bookings" className="text-black hover:text-gray-900">My Bookings</Link>
+              <Link to="/bookings" className="text-black hover:text-gray-900 transition-colors">My Bookings</Link>
             </li>
             <li>
-              <Link to="/timetable" className="text-black hover:text-gray-900">Timetable</Link>
+              <Link to="/timetable" className="text-black hover:text-gray-900 transition-colors">Timetable</Link>
             </li>
             <li>
-              <Link to="/favorites" className="text-black hover:text-gray-900">Favorites</Link>
+              <Link to="/favorites" className="text-black hover:text-gray-900 transition-colors">Favorites</Link>
             </li>
             <li>
               <form
@@ -92,7 +92,7 @@ const Header = () => {
                 <input
                   type="search"
                   placeholder="Search buses"
-                  className="w-44 rounded-lg border border-gray-300 bg-white pl-8 pr-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-44 rounded-lg border border-gray-300 bg-white pl-8 pr-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
                 />
               </form>
             </li>
@@ -105,16 +105,24 @@ const Header = () => {
                   }`}
                 >
                   {/* User Avatar with Gradient */}
-                  <div className="relative flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 text-white font-bold text-sm shadow-lg ring-2 ring-white">
-                    {getUserInitials()}
-                  </div>
+                  {user?.profilePicture ? (
+                    <img
+                      src={user.profilePicture}
+                      alt={user.username || 'User'}
+                      className="h-10 w-10 rounded-full ring-2 ring-white object-cover"
+                    />
+                  ) : (
+                    <div className="relative flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 text-white font-bold text-sm shadow-lg ring-2 ring-white">
+                      {getUserInitials()}
+                    </div>
+                  )}
                   {/* Username */}
                   <span className="hidden sm:block text-sm font-semibold text-gray-800">
                     {user?.username || user?.email?.split('@')[0]}
                   </span>
                   {/* Dropdown Arrow */}
                   <svg
-                    className={`h-4 w-4 text-gray-600 transition-transform duration-200 ${isProfileOpen ? 'rotate-180' : ''}`}
+                    className={`h-4 w-4 text-gray-600 dark:text-dark-text-secondary transition-transform duration-200 ${isProfileOpen ? 'rotate-180' : ''}`}
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -125,13 +133,21 @@ const Header = () => {
 
                 {/* Enhanced Dropdown Menu */}
                 {isProfileOpen && (
-                  <div className="absolute right-0 mt-3 w-64 rounded-2xl bg-white shadow-xl border border-gray-100 overflow-hidden z-50 profile-dropdown">
+                  <div className="absolute right-0 mt-3 w-64 rounded-2xl bg-white shadow-xl border border-gray-100 overflow-hidden z-50 profile-dropdown transition-colors duration-200">
                     {/* User Info Section with Gradient Background */}
                     <div className="bg-gradient-to-r from-blue-600 to-indigo-600 px-5 py-4 text-white">
                       <div className="flex items-center gap-3">
-                        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm text-white font-bold text-lg ring-2 ring-white/30">
-                          {getUserInitials()}
-                        </div>
+                        {user?.profilePicture ? (
+                          <img
+                            src={user.profilePicture}
+                            alt={user.username || 'User'}
+                            className="h-12 w-12 rounded-full ring-2 ring-white/30 object-cover"
+                          />
+                        ) : (
+                          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm text-white font-bold text-lg ring-2 ring-white/30">
+                            {getUserInitials()}
+                          </div>
+                        )}
                         <div className="flex-1 min-w-0">
                           <p className="text-base font-bold truncate">
                             {user?.username || 'User'}
@@ -205,14 +221,14 @@ const Header = () => {
                 )}
               </li>
             ) : (
-              <li>
-                <Link
-                  to="/login"
-                  className="inline-flex items-center rounded-xl bg-blue-100 px-4 py-2 font-semibold shadow-sm text-black hover:bg-blue-200 transition"
-                >
-                  Login
-                </Link>
-              </li>
+            <li>
+              <Link
+                to="/login"
+                  className="inline-flex items-center rounded-xl bg-blue-100 px-4 py-2 font-semibold shadow-sm text-black hover:bg-blue-200 transition-colors"
+              >
+                Login
+              </Link>
+            </li>
             )}
           </ul>
         </nav>

@@ -326,19 +326,19 @@ const Bookings = () => {
   };
 
   return (
-    <main className="max-w-5xl mx-auto px-4 py-8">
-      <h2 className="text-3xl font-bold text-gray-900">My Bookings</h2>
-      <p className="text-gray-600">Book seats based on location and availability. Complete payment to confirm your booking.</p>
+    <main className="max-w-5xl mx-auto px-4 py-8 bg-white dark:bg-dark-bg min-h-[calc(100vh-64px)] transition-colors duration-200">
+      <h2 className="text-3xl font-bold text-gray-900 dark:text-dark-text-primary">My Bookings</h2>
+      <p className="text-gray-600 dark:text-dark-text-secondary">Book seats based on location and availability. Complete payment to confirm your booking.</p>
 
-      <div className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
+      <div className="rounded-2xl border border-gray-200 dark:border-dark-border bg-white dark:bg-dark-surface p-4 shadow-sm">
         <form onSubmit={onSubmit} className="grid grid-cols-1 md:grid-cols-6 gap-4">
           <div className="md:col-span-2">
-            <label className="block text-sm font-medium text-gray-700">Bus and base location</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-dark-text-primary">Bus and base location</label>
             <select
               value={busId}
               onChange={(e)=>setBusId(e.target.value)}
               disabled={loadingBuses}
-              className="mt-1 w-full rounded-xl border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50"
+              className="mt-1 w-full rounded-xl border border-gray-300 dark:border-dark-border bg-white dark:bg-dark-card px-3 py-2 text-gray-900 dark:text-dark-text-primary focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 disabled:opacity-50 transition-colors"
             >
               <option value="">{loadingBuses ? 'Loading buses...' : availableBuses.length === 0 ? 'No buses available' : 'Select a bus'}</option>
               {availableBuses.map(bus => (
@@ -347,60 +347,60 @@ const Bookings = () => {
                 </option>
               ))}
             </select>
-            {loadingBuses && <p className="mt-1 text-sm text-blue-600">Loading buses...</p>}
+            {loadingBuses && <p className="mt-1 text-sm text-blue-600 dark:text-blue-400">Loading buses...</p>}
             {!loadingBuses && availableBuses.length === 0 && (
-              <p className="mt-1 text-sm text-red-600">No buses available. Please contact administrator.</p>
+              <p className="mt-1 text-sm text-red-600 dark:text-red-400">No buses available. Please contact administrator.</p>
             )}
-            {chosen && <p className="mt-1 text-sm text-gray-500">Capacity: {chosen.capacity} seats</p>}
+            {chosen && <p className="mt-1 text-sm text-gray-500 dark:text-dark-text-muted">Capacity: {chosen.capacity} seats</p>}
           </div>
 
           <div className="md:col-span-2">
-            <label className="block text-sm font-medium text-gray-700">Pickup location</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-dark-text-primary">Pickup location</label>
             <input
               type="text"
               value={pickup}
               onChange={(e)=>setPickup(e.target.value)}
               placeholder="e.g., Elite Chaurah"
-              className="mt-1 w-full rounded-xl border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="mt-1 w-full rounded-xl border border-gray-300 dark:border-dark-border bg-white dark:bg-dark-card px-3 py-2 text-gray-900 dark:text-dark-text-primary focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 placeholder:text-gray-400 dark:placeholder:text-dark-text-muted transition-colors"
             />
           </div>
 
           <div className="md:col-span-2">
-            <label className="block text-sm font-medium text-gray-700">Drop location</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-dark-text-primary">Drop location</label>
             <input
               type="text"
               value={drop}
               onChange={(e)=>setDrop(e.target.value)}
               placeholder="e.g., Medical Gate No-3"
-              className="mt-1 w-full rounded-xl border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="mt-1 w-full rounded-xl border border-gray-300 dark:border-dark-border bg-white dark:bg-dark-card px-3 py-2 text-gray-900 dark:text-dark-text-primary focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 placeholder:text-gray-400 dark:placeholder:text-dark-text-muted transition-colors"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">Seats</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-dark-text-primary">Seats</label>
             <input
               type="number"
               min="1"
               value={seats}
               onChange={(e)=>setSeats(Number(e.target.value))}
-              className="mt-1 w-full rounded-xl border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="mt-1 w-full rounded-xl border border-gray-300 dark:border-dark-border bg-white dark:bg-dark-card px-3 py-2 text-gray-900 dark:text-dark-text-primary focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 transition-colors"
             />
           </div>
 
           <div className="md:col-span-6">
-            <div className="mb-3 p-3 bg-blue-50 rounded-xl border border-blue-200">
+            <div className="mb-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-xl border border-blue-200 dark:border-blue-800">
               <div className="flex justify-between items-center">
-                <span className="text-sm font-medium text-gray-700">Total Fare:</span>
-                <span className="text-2xl font-bold text-blue-700">₹{totalFare.toFixed(2)}</span>
+                <span className="text-sm font-medium text-gray-700 dark:text-dark-text-primary">Total Fare:</span>
+                <span className="text-2xl font-bold text-blue-700 dark:text-blue-400">₹{totalFare.toFixed(2)}</span>
               </div>
-              <p className="text-xs text-gray-600 mt-1">
+              <p className="text-xs text-gray-600 dark:text-dark-text-secondary mt-1">
                 {seats} seat(s) × ₹{farePerSeat.toFixed(2)} per seat
               </p>
             </div>
             <button
               type="submit"
               disabled={loading || loadingBuses || !chosen || seats <= 0 || (chosen && seats > chosen.capacity) || !pickup.trim() || !drop.trim() || !isAuthenticated || totalFare < 1}
-              className="w-full rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-5 py-3 text-white font-semibold shadow-lg shadow-blue-600/30 hover:from-blue-700 hover:to-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition"
+              className="w-full rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-500 dark:to-indigo-500 px-5 py-3 text-white font-semibold shadow-lg shadow-blue-600/30 dark:shadow-blue-500/30 hover:from-blue-700 hover:to-indigo-700 dark:hover:from-blue-600 dark:hover:to-indigo-600 disabled:opacity-50 disabled:cursor-not-allowed transition"
             >
               {loading ? 'Processing...' : `Pay ₹${totalFare.toFixed(2)} & Book Seat`}
             </button>
@@ -409,10 +409,10 @@ const Bookings = () => {
         {message && (
           <div className={`mt-4 p-4 rounded-xl border ${
             message.includes('success') || message.includes('✅') 
-              ? 'bg-green-50 text-green-800 border-green-200' 
+              ? 'bg-green-50 dark:bg-green-900/20 text-green-800 dark:text-green-300 border-green-200 dark:border-green-800' 
               : message.includes('cancelled') || message.includes('Processing')
-              ? 'bg-yellow-50 text-yellow-800 border-yellow-200'
-              : 'bg-red-50 text-red-800 border-red-200'
+              ? 'bg-yellow-50 dark:bg-yellow-900/20 text-yellow-800 dark:text-yellow-300 border-yellow-200 dark:border-yellow-800'
+              : 'bg-red-50 dark:bg-red-900/20 text-red-800 dark:text-red-300 border-red-200 dark:border-red-800'
           }`}>
             <div className="flex items-center gap-2">
               {message.includes('✅') && <span className="text-xl">✅</span>}
@@ -424,58 +424,58 @@ const Bookings = () => {
       </div>
 
       {bookingData && (
-        <section className="mt-6 rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
-          <h3 className="text-xl font-semibold text-center mb-4">Booking Confirmed!</h3>
+        <section className="mt-6 rounded-2xl border border-gray-200 dark:border-dark-border bg-white dark:bg-dark-surface p-5 shadow-sm">
+          <h3 className="text-xl font-semibold text-center mb-4 dark:text-dark-text-primary">Booking Confirmed!</h3>
           <div className="space-y-2">
-            <p className="text-sm"><span className="font-semibold">Ticket Number:</span> {bookingData.ticket?.ticketNumber}</p>
-            <p className="text-sm"><span className="font-semibold">Bus:</span> {bookingData.booking?.bus?.busNumber}</p>
-            <p className="text-sm"><span className="font-semibold">Route:</span> {bookingData.booking?.route?.routeName}</p>
-            <p className="text-sm"><span className="font-semibold">Status:</span> <span className="text-green-600 font-semibold">{bookingData.booking?.status}</span></p>
+            <p className="text-sm dark:text-dark-text-secondary"><span className="font-semibold">Ticket Number:</span> {bookingData.ticket?.ticketNumber}</p>
+            <p className="text-sm dark:text-dark-text-secondary"><span className="font-semibold">Bus:</span> {bookingData.booking?.bus?.busNumber}</p>
+            <p className="text-sm dark:text-dark-text-secondary"><span className="font-semibold">Route:</span> {bookingData.booking?.route?.routeName}</p>
+            <p className="text-sm dark:text-dark-text-secondary"><span className="font-semibold">Status:</span> <span className="text-green-600 dark:text-green-400 font-semibold">{bookingData.booking?.status}</span></p>
           </div>
         </section>
       )}
 
       <section className="mt-8">
-        <h3 className="text-2xl font-semibold">Your recent bookings</h3>
-        <div className="mt-4 overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
+        <h3 className="text-2xl font-semibold dark:text-dark-text-primary">Your recent bookings</h3>
+        <div className="mt-4 overflow-hidden rounded-2xl border border-gray-200 dark:border-dark-border bg-white dark:bg-dark-surface shadow-sm">
           <table className="w-full text-left">
-            <thead className="bg-gray-50">
+            <thead className="bg-gray-50 dark:bg-dark-card">
               <tr>
-                <th className="px-6 py-3 text-sm font-semibold text-gray-700">Bus</th>
-                <th className="px-6 py-3 text-sm font-semibold text-gray-700">Pickup</th>
-                <th className="px-6 py-3 text-sm font-semibold text-gray-700">Drop</th>
-                <th className="px-6 py-3 text-sm font-semibold text-gray-700">Seats</th>
-                <th className="px-6 py-3 text-sm font-semibold text-gray-700">Fare/seat</th>
-                <th className="px-6 py-3 text-sm font-semibold text-gray-700">Total</th>
-                <th className="px-6 py-3 text-sm font-semibold text-gray-700">Status</th>
-                <th className="px-6 py-3 text-sm font-semibold text-gray-700">Time</th>
+                <th className="px-6 py-3 text-sm font-semibold text-gray-700 dark:text-dark-text-primary">Bus</th>
+                <th className="px-6 py-3 text-sm font-semibold text-gray-700 dark:text-dark-text-primary">Pickup</th>
+                <th className="px-6 py-3 text-sm font-semibold text-gray-700 dark:text-dark-text-primary">Drop</th>
+                <th className="px-6 py-3 text-sm font-semibold text-gray-700 dark:text-dark-text-primary">Seats</th>
+                <th className="px-6 py-3 text-sm font-semibold text-gray-700 dark:text-dark-text-primary">Fare/seat</th>
+                <th className="px-6 py-3 text-sm font-semibold text-gray-700 dark:text-dark-text-primary">Total</th>
+                <th className="px-6 py-3 text-sm font-semibold text-gray-700 dark:text-dark-text-primary">Status</th>
+                <th className="px-6 py-3 text-sm font-semibold text-gray-700 dark:text-dark-text-primary">Time</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-200">
+            <tbody className="divide-y divide-gray-200 dark:divide-dark-border">
               {items.length === 0 && (
                 <tr>
-                  <td colSpan="8" className="px-6 py-6 text-center text-gray-600">No bookings yet</td>
+                  <td colSpan="8" className="px-6 py-6 text-center text-gray-600 dark:text-dark-text-secondary">No bookings yet</td>
                 </tr>
               )}
               {items.map(it => (
-                <tr key={it.id} className="bg-white hover:bg-gray-50">
-                  <td className="px-6 py-4 text-gray-900">{it.bus}</td>
-                  <td className="px-6 py-4 text-gray-700">{it.pickup}</td>
-                  <td className="px-6 py-4 text-gray-700">{it.drop}</td>
-                  <td className="px-6 py-4 text-gray-700">{it.seats}</td>
-                  <td className="px-6 py-4 text-gray-700">₹ {it.farePerSeat}</td>
-                  <td className="px-6 py-4 text-gray-900 font-semibold">₹ {it.totalFare}</td>
+                <tr key={it.id} className="bg-white dark:bg-dark-surface hover:bg-gray-50 dark:hover:bg-dark-card transition-colors">
+                  <td className="px-6 py-4 text-gray-900 dark:text-dark-text-primary">{it.bus}</td>
+                  <td className="px-6 py-4 text-gray-700 dark:text-dark-text-secondary">{it.pickup}</td>
+                  <td className="px-6 py-4 text-gray-700 dark:text-dark-text-secondary">{it.drop}</td>
+                  <td className="px-6 py-4 text-gray-700 dark:text-dark-text-secondary">{it.seats}</td>
+                  <td className="px-6 py-4 text-gray-700 dark:text-dark-text-secondary">₹ {it.farePerSeat}</td>
+                  <td className="px-6 py-4 text-gray-900 dark:text-dark-text-primary font-semibold">₹ {it.totalFare}</td>
                   <td className="px-6 py-4">
                     <span className={`px-2 py-1 rounded-full text-xs font-semibold ${
-                      it.status === 'confirmed' ? 'bg-green-100 text-green-700' :
-                      it.status === 'pending' ? 'bg-yellow-100 text-yellow-700' :
-                      it.status === 'cancelled' ? 'bg-red-100 text-red-700' :
-                      'bg-gray-100 text-gray-700'
+                      it.status === 'confirmed' ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400' :
+                      it.status === 'pending' ? 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400' :
+                      it.status === 'cancelled' ? 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400' :
+                      'bg-gray-100 dark:bg-dark-card text-gray-700 dark:text-dark-text-secondary'
                     }`}>
                       {it.status || 'pending'}
                     </span>
                   </td>
-                  <td className="px-6 py-4 text-gray-700">{new Date(it.ts).toLocaleString()}</td>
+                  <td className="px-6 py-4 text-gray-700 dark:text-dark-text-secondary">{new Date(it.ts).toLocaleString()}</td>
                 </tr>
               ))}
             </tbody>

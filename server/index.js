@@ -16,8 +16,19 @@ dotenv.config();
 const app = express();
 
 // Middleware
+const allowedOrigins = (process.env.CLIENT_URLS || process.env.CLIENT_URL || "http://localhost:5173")
+    .split(",")
+    .map(origin => origin.trim())
+    .filter(Boolean);
+
 app.use(cors({
-    origin: process.env.CLIENT_URL || "http://localhost:5173",
+    origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin)) {
+            return callback(null, true);
+        }
+        console.warn(`CORS blocked request from origin: ${origin}`);
+        return callback(new Error("Not allowed by CORS"));
+    },
     credentials: true
 }));
 app.use(morgan("dev"));

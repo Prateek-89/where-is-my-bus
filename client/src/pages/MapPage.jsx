@@ -27,13 +27,13 @@ const MapPage = () => {
   const waypoints = BUS_WAYPOINTS[Number(id)] || BUS_WAYPOINTS[42];
 
   return (
-    <main className="max-w-6xl mx-auto px-4 py-8">
+    <main className="max-w-6xl mx-auto px-4 py-8 bg-white dark:bg-dark-bg min-h-[calc(100vh-64px)] transition-colors duration-200">
       <div className="flex items-center justify-between mb-4">
         <div>
-          <h2 className="text-3xl font-bold text-gray-900">Live bus tracker</h2>
-          <p className="text-gray-600">Now tracking: <span className="font-semibold">Bus {id}</span></p>
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-dark-text-primary">Live bus tracker</h2>
+          <p className="text-gray-600 dark:text-dark-text-secondary">Now tracking: <span className="font-semibold dark:text-dark-text-primary">Bus {id}</span></p>
         </div>
-        <Link to="/" className="inline-flex items-center rounded-xl bg-blue-100 px-5 py-2.5 text-black font-semibold hover:bg-blue-100">← Back to Home</Link>
+        <Link to="/" className="inline-flex items-center rounded-xl bg-blue-100 dark:bg-blue-900/30 px-5 py-2.5 text-black dark:text-dark-text-primary font-semibold hover:bg-blue-200 dark:hover:bg-blue-900/40 transition-colors">← Back to Home</Link>
       </div>
 
       <div className="grid grid-cols-1 gap-4">
